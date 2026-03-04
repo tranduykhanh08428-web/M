@@ -3737,21 +3737,63 @@ function CheckItemBPCRBPCR(v463)
     end
 end
 local vu32 = loadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/Library-ui/refs/heads/main/redz-V5-remake/main.luau"))()
+
 local v466 = vu32:MakeWindow({
-    Title = "Master Hud [ BETA] : Blox Fruits",
-    SubTitle = "BY TRAN DUY KHANH ",
+    Title = "Master Hud : Blox Fruits",
+    SubTitle = "BY TRAN DUY KHANH",
     SaveFolder = "Master V1"
 })
 
 v466:AddMinimizeButton({
     Button = { 
-        Image = "rbxassetid://70882089814444", 
-        BackgroundTransparency = 1,
-        ImageColor3 = Color3.fromRGB(255, 255, 255)
+        Image = "",
+        BackgroundColor3 = Color3.fromRGB(0,0,0),
+        BackgroundTransparency = 0
     },
-    Size = UDim2.new(0, 45, 0, 45),
-    Corner = { CornerRadius = UDim.new(0.5, 0) },
+    Size = UDim2.new(0, 35, 0, 35),
+    Corner = { CornerRadius = UDim.new(0.25, 0) },
 })
+
+task.wait(1)
+
+for _,v in pairs(game.CoreGui:GetDescendants()) do
+    if v:IsA("ImageButton") and v.Size == UDim2.new(0,35,0,35) then
+        
+        if not v:FindFirstChild("WhiteStroke") then
+            local stroke = Instance.new("UIStroke")
+            stroke.Name = "WhiteStroke"
+            stroke.Color = Color3.fromRGB(255,255,255)
+            stroke.Thickness = 2
+            stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+            stroke.Parent = v
+        end
+        
+        if not v:FindFirstChild("LogoM") then
+            local text = Instance.new("TextLabel")
+            text.Name = "LogoM"
+            text.Size = UDim2.new(1,0,1,0)
+            text.BackgroundTransparency = 1
+            text.Text = "M"
+            text.TextColor3 = Color3.fromRGB(255,255,255)
+            text.TextScaled = true
+            text.Font = Enum.Font.GothamBlack
+            text.Parent = v
+        end
+        
+    end
+end
+
+local v485 = v466:MakeTab({"Auto Farm", "home"})
+local v487 = v466:MakeTab({"Quest | Items", "swords"})
+local v499 = v466:MakeTab({"Status", "Scroll"})
+local v486 = v466:MakeTab({"Auto Fishing", "rbxassetid://127664059821666"})
+local v489 = v466:MakeTab({"Sea Event", "waves"})
+local v491 = v466:MakeTab({"Raid | Fruits", "cherry"})
+local v497 = v466:MakeTab({"Stats", "Signal"})
+local v493 = v466:MakeTab({"Teleport", "locate"})
+local v494 = v466:MakeTab({"Visual", "user"})
+local v495 = v466:MakeTab({"Shop", "shoppingCart"})
+local v496 = v466:MakeTab({"Misc", "settings"})
 local v485 = v466:MakeTab({"Auto Farm", "home"})
 local v487 = v466:MakeTab({"Quest | Items", "swords"})
 local v499 = v466:MakeTab({"Status", "Scroll"})
@@ -9887,7 +9929,7 @@ v495:AddButton({
     end
 })
 v495:AddButton({
-    Title = "Buy Pipe $100,000",
+    Title = "Buy Pipe",
     Callback = function()
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyItem", "Pipe")
     end
@@ -10043,6 +10085,57 @@ v496:AddButton({
             TeleportService:TeleportToPlaceInstance(game.PlaceId, jobId, LocalPlayer)
         else
             warn("Clipboard vazio ou inválido")
+        end
+    end
+})
+
+v496:AddDropdown({
+    Name = "Select Fix Lag ",
+    Description = "Choose a level to reduce lag",
+    Options = {"None", "Fix Lag 1 ", "Fix Lag 2 ", "Fix Lag 3 "},
+    Default = "None",
+    Callback = function(Value)
+        if Value == "None" then
+            _G.FixLag1 = false
+            game.Lighting.Brightness = 1
+        elseif Value == "Fix Lag 1 (Low)" then
+            -- Chỉ xóa hiệu ứng Skill
+            _G.FixLag1 = true
+            task.spawn(function()
+                while _G.FixLag1 do
+                    for _, v in pairs(game:GetDescendants()) do
+                        if v:IsA("ParticleEmitter") or v:IsA("Trail") or v:IsA("Explosion") then
+                            v.Enabled = false
+                        end
+                    end
+                    task.wait(5)
+                end
+            end)
+        elseif Value == "Fix Lag 2 (Medium)" then
+            -- Map đen + Nhựa phẳng
+            for _, v in pairs(game.Workspace:GetDescendants()) do
+                if v:IsA("BasePart") and not v.Parent:FindFirstChild("Humanoid") then
+                    v.Material = Enum.Material.SmoothPlastic
+                    v.Color = Color3.new(0, 0, 0)
+                end
+            end
+            game.Lighting.Brightness = 0
+            game.Lighting.FogEnd = 9e9
+        elseif Value == "Fix Lag 3 (Ultra)" then
+            -- Xóa sạch Map
+            for _, v in pairs(game.Workspace:GetChildren()) do
+                if v.Name ~= "NPCs" and v.Name ~= "Enemies" and v.Name ~= "Characters" and not v:FindFirstChild("Humanoid") then
+                    if v:IsA("BasePart") or v:IsA("Model") or v:IsA("Folder") then
+                        v:Destroy()
+                    end
+                end
+            end
+            local Plate = Instance.new("Part", game.Workspace)
+            Plate.Size = Vector3.new(10000, 1, 10000)
+            Plate.Anchored = true
+            Plate.Position = Vector3.new(0, -15, 0)
+            Plate.Transparency = 0.5
+            Plate.Color = Color3.new(0, 0, 0)
         end
     end
 })
