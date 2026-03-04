@@ -3783,25 +3783,15 @@ for _,v in pairs(game.CoreGui:GetDescendants()) do
     end
 end
 
-local v485 = v466:MakeTab({"Auto Farm", "home"})
+local v484 = v466:MakeTab({"Discord", "info"})
+local v485 = v466:MakeTab({"Farm", "home"})
 local v487 = v466:MakeTab({"Quest | Items", "swords"})
-local v499 = v466:MakeTab({"Status", "Scroll"})
 local v486 = v466:MakeTab({"Auto Fishing", "rbxassetid://127664059821666"})
 local v489 = v466:MakeTab({"Sea Event", "waves"})
-local v491 = v466:MakeTab({"Raid | Fruits", "cherry"})
+local v491 = v466:MakeTab({"Raid/Fruits", "cherry"})
 local v497 = v466:MakeTab({"Stats", "Signal"})
 local v493 = v466:MakeTab({"Teleport", "locate"})
-local v494 = v466:MakeTab({"Visual", "user"})
-local v495 = v466:MakeTab({"Shop", "shoppingCart"})
-local v496 = v466:MakeTab({"Misc", "settings"})
-local v485 = v466:MakeTab({"Auto Farm", "home"})
-local v487 = v466:MakeTab({"Quest | Items", "swords"})
 local v499 = v466:MakeTab({"Status", "Scroll"})
-local v486 = v466:MakeTab({"Auto Fishing", "rbxassetid://127664059821666"})
-local v489 = v466:MakeTab({"Sea Event", "waves"})
-local v491 = v466:MakeTab({"Raid | Fruits", "cherry"})
-local v497 = v466:MakeTab({"Stats", "Signal"})
-local v493 = v466:MakeTab({"Teleport", "locate"})
 local v494 = v466:MakeTab({"Visual", "user"})
 local v495 = v466:MakeTab({"Shop", "shoppingCart"})
 local v496 = v466:MakeTab({"Misc", "settings"})
@@ -10092,7 +10082,7 @@ v496:AddButton({
 v496:AddDropdown({
     Name = "Select Fix Lag ",
     Description = "Choose a level to reduce lag",
-    Options = {"None", "Fix Lag 1 ", "Fix Lag 2 ", "Fix Lag 3 "},
+    Options = {"Fix Lag 1 ", "Fix Lag 2 ", "Fix Lag 3 "},
     Default = "None",
     Callback = function(Value)
         if Value == "None" then
